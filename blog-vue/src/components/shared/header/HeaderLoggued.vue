@@ -7,30 +7,26 @@
             <li>
                 <button @click="logOut()">Log Out</button>
             </li>
-            <li>
-                {{infoToken.body.user}} - {{infoToken.body.role}}
-            </li>
         </ul>
-
     </nav>
 </template>
 
 <script>
-import * as jwt_decode from 'jwt-decode';
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'HeaderLoggued',
+      computed: {
+        ...mapGetters([
+        'token',
+        ]),
+    },
     methods: {
         logOut() {
+            this.$store.dispatch('logOut');
             localStorage.removeItem('token');
+            this.$router.push('/home'); 
         }
     },
-     data() {
-    const token = localStorage.getItem('token');
-    const tokenInfo = jwt_decode(token);
-        return {
-            infoToken: tokenInfo
-        };
-    }
 }
 </script>

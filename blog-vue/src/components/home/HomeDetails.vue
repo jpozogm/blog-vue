@@ -9,20 +9,20 @@
     <div v-else>
 
       <div>
-        <h2>{{APIposts.postTittle}}</h2>
+        <h2>{{post.postTittle}}</h2>
 
         <div>
           <label>Author:</label>
-          {{APIposts.postAuthorName}}
+          {{post.postAuthorName}}
         </div>
         <div>
           <label>Description:</label>
-          {{APIposts.postContent}}
+          {{post.postContent}}
         </div>
 
 
         <ul>
-          <li v-for="comment in APIposts.postComments" :key="comment._id">
+          <li v-for="comment in post.postComments" :key="comment._id">
             <p>{{comment.commentAuthorNickName}}</p>
             <p>{{comment.commentContent}}</p>
           </li>
@@ -36,39 +36,33 @@
 
 <script>
 
-import PostsProxyService from '../../services/post-proxy.service.js';
+import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex'
 
 export default {
-  created() {
-    this.post();
+
+ name: "HomeDetails",
+  beforeMount(){
+    let id = this.$route.params.id;
+    this.$store.dispatch('loadPost', id)
   },
-  data() {
-    return {
-      APIposts: [],
-      loading: true,
-      errored: false
-    };
+
+  computed: {
+     ...mapGetters([
+      'post',
+      'loading',
+      'errored'
+    ]),
+
+    ...mapActions([
+      'loadPost'
+    ])
   },
-  computed: {},
+
   methods: {
     gotoHome() {
       this.$router.push("/home");
     },
-
-    post() {
-      let id = this.$route.params.id;
-      PostsProxyService.getPost(id)
-      .then(res => {
-        if (res.data) {
-          this.APIposts = res.data;
-        }
-      })
-      .catch(error => {
-        console.log(error)
-        this.errored = true
-      })
-      .finally(() => this.loading = false)
-    }
   }
 };
 

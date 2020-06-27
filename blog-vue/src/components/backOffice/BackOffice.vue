@@ -13,47 +13,67 @@
 
       <div v-else>
         <ul>
-          <li v-for="post in APIposts" :key="post._id">
+          <li v-for="post in posts" :key="post._id">
             <router-link :to="'/PrivatePost/'+post._id">{{post._id}} - {{post.postTittle}}</router-link>
           </li>
         </ul>
       </div>
     </section>
+
+<Button label="Submit" />
+<Button label="Submit" disabled="disabled" />
+
+    <DataTable :value="posts">
+      <Column field="vin" header="Vin"></Column>
+      <Column field="year" header="Year"></Column>
+      <Column field="brand" header="Brand"></Column>
+      <Column field="color" header="Color"></Column>
+    </DataTable>
+    
+
+
   </div>
+
+
 </template>
 
 <script>
-import PostsProxyService from '../../services/post-proxy.service.js';
+import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex'
+
+
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import Button from 'primevue/button';
+
+
 
 export default {
   name: 'BackOffice',
-  created() {
-    this.posts();
+  beforeMount(){
+    this.$store.dispatch('loadPosts')
   },
-  data() {
-    return {
-      APIposts: [],
-      numberOfPosts: 0,
-      loading: true,
-      errored: false
-    };
-  },
-  methods: {
-    posts() {
-      PostsProxyService.getPosts()
-      .then(res => {
-        if (res.data) {
-          this.APIposts = res.data;
-          this.numberOfPosts = res.data.count
-        }
-      })
-      .catch(error => {
-        console.log(error)
-        this.errored = true
-      })
-      .finally(() => this.loading = false)
-    },
 
+
+  computed: {
+    ...mapGetters([
+      'posts',
+      'loading',
+      'errored'
+    ]),
+
+    ...mapActions([
+      'loadPosts'
+    ])
+  },
+
+    components: {
+    'DataTable': DataTable,
+    'Column': Column,
+    'Button': Button
+  },
+
+  methods: {
     newPost(){
       this.$router.push('/newPost')
     }

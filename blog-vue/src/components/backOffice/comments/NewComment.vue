@@ -17,18 +17,15 @@
 
 <script>
 import * as jwt_decode from 'jwt-decode';
-import CommentProxyService from '../../../services/comment-proxy.service.js'
 
 export default {
     name: 'newComment',
+
     data(){
         const token = localStorage.getItem('token');
         const tokenInfo = jwt_decode(token);
 
         return{
-            loading: true,
-            errored: false,
-
             newComment:{
                 commentContent: "",
                 commentAuthorNickName: tokenInfo.body.user,
@@ -41,19 +38,12 @@ export default {
             this.$router.push('/backOffice')
         },
 
-        saveNewComment(){
+        async saveNewComment(){
             let id = this.$route.params.id;
-            CommentProxyService.saveNewComment(id, this.newComment)
-            .then(res => {
-                if (res.data) {
-                    console.log("done")
-                }
-            })
-            .catch(error => {
-                this.error = error.error.message;
-            })
-            .finally(() => this.loading = false)
-            },
+            const payload= {id:id, newComment:this.newComment};
+            await this.$store.dispatch('saveNewComment', payload)
+            this.newComment.commentContent = "";
         }
+    }
 }
 </script>

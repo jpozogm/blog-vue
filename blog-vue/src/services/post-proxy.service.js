@@ -26,6 +26,9 @@ export default {
     },
 
     updatePost(id, post){
+        console.log('id', id)
+        console.log('post', post)
+
         const url = `${API_URL}${API_POSTS}${id}`;
         
         return axios.put(url, post);

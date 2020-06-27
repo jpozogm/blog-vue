@@ -12,7 +12,6 @@
                     <input type="password" name="password" v-model="signInForm.password">
                 </div>
 
-
                 <button type="submit" class="signIn">SIGN IN</button>
                 <button class="signIn"  @click="changingSign()" >SIGN UP</button>
             </form>
@@ -52,9 +51,20 @@
 
 <script>
 import LoginService from '../../services/login.service.js';
+import { mapGetters, mapActions } from 'vuex'
  
 export default {
     name: 'login',
+    computed: {
+        ...mapGetters([
+        'token',
+        'errored'
+        ]),
+        ...mapActions([
+        'loadPost'
+        ])
+    },
+
     data(){
         return{
             signInForm:{
@@ -66,32 +76,16 @@ export default {
                 password: "",
                 role: ""
             },
-            token: "",
-            sign: true,
-            errored: false,
-            loading: false,
         }
     },
 
     methods: {
-        changingSign(){
-          this.sign =  !this.sign 
-          console.log("this.sign", this.sign)
+        async signIn(login){
+            await this.$store.dispatch('signIn', login)
+            localStorage.setItem('token', this.token);
+            this.$router.push('/backOffice'); 
         },
 
-
-        signIn(login){
-          LoginService.signIn(login)
-            .then(res => {
-                localStorage.setItem('token', res.data.token);
-                this.$router.push('/backOffice')
-            })
-            .catch(error => {
-                console.log(error)
-                this.errored = true
-            })
-            .finally(() => this.loading = false)
-        },
 
         signUp(){
             LoginService.signUp(this.signUpForm)

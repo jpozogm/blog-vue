@@ -4,11 +4,9 @@
         <form id="updatePost" @submit.prevent="updateComment()">
 
             <div>
-                <h2>{{APIcomment}}</h2>
-         
                 <label>Author:</label>
-                <p>{{APIcomment.commentAuthorNickName}}</p>
-                <p>{{APIcomment.commentContent}}</p>
+                <p>{{comment.commentAuthorNickName}}</p>
+                <p>{{comment.commentContent}}</p>
             </div>
 
                 <div class="form-group">
@@ -26,63 +24,54 @@
 
 <script>
 
-import CommentsProxyService from '../../../services/comment-proxy.service';
 import * as jwt_decode from 'jwt-decode';
+import { mapGetters } from 'vuex';
+import { mapActions } from 'vuex'
 
 export default {
     name: 'editComment',
+    beforeMount(){
+        let id = this.$route.params.id;
+        this.$store.dispatch('getComment', id)
+    },
+
+  computed: {
+    ...mapGetters([
+      'comment',
+      'loading',
+      'errored'
+    ]),
+    ...mapActions([
+      'getComment',
+      //'updateComment'
+    ])
+  },
+
     data() {
         const token = localStorage.getItem('token');
         const tokenInfo = jwt_decode(token);
 
     
         return {
-            APIcomment: [],
-            loading: true,
-            errored: false,
             infoToken: tokenInfo,
 
             updatedComment:{
+                commentAuthorNickName: tokenInfo.body.user,
             },
         };
     },
 
-    created() {
-        this.getComment();
-    },
     methods: {
-        getComment() {
-            let id = this.$route.params.id;
-            CommentsProxyService.getComment(id)
-            .then(res => {
-                if (res.data) {
-                this.APIcomment = res.data;
-                }
-            })
-            .catch(error => {
-                console.log(error)
-                this.errored = true
-            })
-            .finally(() => this.loading = false)
-        },
 
         back(){
-            this.$router.push(`/PrivatePost/${this.APIcomment?.commentsPostId[0]}`);
+            this.$router.push(`/PrivatePost/${this.comment?.commentsPostId[0]}`);
         },
 
-        updateComment(){
+        async updateComment(){
             let id = this.$route.params.id;
-            CommentsProxyService.updateComment(id, this.updatedComment)
-            .then(res => {
-                if (res.data) {
-                this.$router.push(`/PrivatePost/${this.APIcomment?.commentsPostId[0]}`);
-                }
-            })
-            .catch(error => {
-                console.log(error)
-                this.errored = true
-            })
-            .finally(() => this.loading = false)
+            const payload= {id:id, updatedComment:this.updatedComment};
+            await this.$store.dispatch('updateComment', payload)
+            this.$router.push(`/PrivatePost/${this.comment?.commentsPostId[0]}`)
         }
     }  
 }

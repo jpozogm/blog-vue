@@ -23,7 +23,6 @@
 
 <script>
 import * as jwt_decode from 'jwt-decode';
-import PostsProxyService from '../../../services/post-proxy.service.js'
 
 export default {
     name: 'newPost',
@@ -49,20 +48,10 @@ export default {
             this.$router.push('/backOffice')
         },
 
-
-        saveNewPost(){
-            console.log('newPost', this.newPost)
-            PostsProxyService.saveNewPost(this.newPost)
-            .then(res => {
-                if (res.data) {
-                    this.$router.push('/backOffice')
-                }
-            })
-            .catch(error => {
-                this.error = error.error.message;
-            })
-            .finally(() => this.loading = false)
-            },
-        }
+        async saveNewPost(){
+            this.$store.dispatch('saveNewPost', this.newPost)
+            await this.$router.push('/backOffice');
+        },
+    }
 }
 </script>

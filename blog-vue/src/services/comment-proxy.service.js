@@ -16,7 +16,6 @@ export default {
     },
 
     saveNewComment(id, newComment){
-        console.log('id', id)
         const url = `${API_URL}${API_COMMENTS}${id}`;
         return axios.post(url, newComment);
     },
@@ -27,6 +26,9 @@ export default {
     },
 
     updateComment(id, comment){
+        console.log('id', id)
+        console.log('comment', comment)
+
         const url = `${API_URL}${API_COMMENTS}${id}`;
         return axios.put(url, comment);
     },

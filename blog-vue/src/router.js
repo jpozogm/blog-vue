@@ -46,3 +46,8 @@ export default new Router({
     { path: '/editComment/:id', name: 'editComment', component: EditComment },
   ]
 })
+
+/* path: ‘/backOffice’, component: BackOffice, children: [
+  { path: ‘’, name: ‘BackOffice’, component: () => import(“./components/BOPost.vue”) },
+  { path: ‘:id’, name: ‘BOPostDetails’, component: () => import(“./components/BOPostDetails.vue”) },
+] */

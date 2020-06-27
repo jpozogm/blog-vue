@@ -5,9 +5,9 @@
         <form id="updatePost" @submit.prevent="updatePost()">
 
             <div>
-                <h2>{{APIpost.postTittle}}</h2>
+                <h2>{{post.postTittle}}</h2>
                 <label>Author:</label>
-                <p>{{APIpost.postAuthorName}}</p>
+                <p>{{post.postAuthorName}}</p>
             </div>
 
                 <div class="form-group">
@@ -30,22 +30,35 @@
 
 <script>
 
-import PostsProxyService from '../../../services/post-proxy.service';
 import * as jwt_decode from 'jwt-decode';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
 
     name: 'editPost',
+    beforeMount(){
+        let id = this.$route.params.id;
+        this.$store.dispatch('loadPost', id)
+    },
+
+    computed: {
+        ...mapGetters([
+        'post',
+        'loading',
+        'errored'
+        ]),
+        ...mapActions([
+        'loadPost',
+        ])
+    },
+
     data() {
         const token = localStorage.getItem('token');
         const tokenInfo = jwt_decode(token);
 
     
         return {
-            APIpost: [],
-            loading: true,
-            errored: false,
             infoToken: tokenInfo,
 
             updateForm:{
@@ -53,48 +66,17 @@ export default {
         };
     },
 
-    created() {
-        this.post();
-    },
     methods: {
-        gotoHome() {
-            this.$router.push("/BackOffice");
-        },
 
-        post() {
+        async updatePost(){
             let id = this.$route.params.id;
-            PostsProxyService.getPost(id)
-            .then(res => {
-                if (res.data) {
-                this.APIpost = res.data;
-                console.log(this.APIpost)
-                }
-            })
-            .catch(error => {
-                console.log(error)
-                this.errored = true
-            })
-            .finally(() => this.loading = false)
+            const payload= {id:id, updateForm:this.updateForm};
+            await this.$store.dispatch('updatePost', payload)
+            this.$router.push(`/PrivatePost/${this.post._id}`)
         },
 
         back(){
-            this.$router.push(`/PrivatePost/${this.APIpost._id}`);
-        },
-
-        updatePost(){
-            let id = this.$route.params.id;
-
-            PostsProxyService.updatePost(id, this.updateForm)
-            .then(res => {
-                if (res.data) {
-                this.$router.push(`/PrivatePost/${this.APIpost._id}`);
-                }
-            })
-            .catch(error => {
-                console.log(error)
-                this.errored = true
-            })
-            .finally(() => this.loading = false)
+            this.$router.push(`/PrivatePost/${this.post._id}`);
         }
     }  
 }
