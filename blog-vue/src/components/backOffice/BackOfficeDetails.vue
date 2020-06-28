@@ -128,7 +128,7 @@ export default {
   }
 
   section .p-card{
-    background: transparent;
+    background: white;
     color: black;
     border: 1px solid black;
     border-radius: 5px
@@ -151,7 +151,8 @@ export default {
   }
 
   section .p-fieldset {
-    background: transparent;
+    background: white;
+    min-height: 70px;
     color: black;
     margin: 10px 0;
     font-style: italic;

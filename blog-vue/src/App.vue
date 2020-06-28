@@ -1,13 +1,18 @@
   
 <template>
-  <div id="app">
-    <h1 class="title">Library</h1>
-    <Header></Header>    
-    <router-view/>
-  </div>
+  <blog-back-ground>
+    <div id="app">
+
+      <blog-layout>
+          <div slot="navbar">      
+            <Header></Header>    
+          </div>
+          <div slot="section"><router-view/> </div> 
+      </blog-layout>
+      
+    </div>
+  </blog-back-ground>
 </template>
-
-
 
 <script>
 import Header from './components/shared/header/Header';

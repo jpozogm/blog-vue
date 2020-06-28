@@ -7,7 +7,7 @@
             <Card class="w-80">
                 <template slot="title">
                     <div class="form-group">
-                        <label for="user">Title</label>
+                        <label class="title" for="user">Title</label>
                         <InputText type="text" name="user" class="form-comtrol mt-10 w-100" v-model="newPost.postTittle" />
                     </div>
                 </template>
@@ -79,7 +79,6 @@ export default {
 
 <style>
 
-
  .mt-10{
     margin-top: 10px;
   }
@@ -95,6 +94,13 @@ export default {
  .form-group .p-inputtext{
     background-color: white;
     color: black
+  }
+
+  .form-group .title{
+      color: black;
+      text-align: center;
+      display: block;
+      font-size: 30px;
   }
 
 .form-group textarea{

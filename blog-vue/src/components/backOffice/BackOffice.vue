@@ -10,7 +10,7 @@
       <div v-if="loading">Cargando...</div>
 
       <div v-else>
-        <DataTable :value="posts" selectionMode="single" @row-select="onRowSelect" dataKey="id" class="light-panel">
+        <DataTable :value="posts" selectionMode="single" @row-select="onRowSelect" dataKey="id" class="light-panel w-80">
 
           <template #header>
             <div style="line-height:1.87em" class="p-clearfix">
@@ -92,6 +92,7 @@ export default {
     border: 1px solid black;
     border-radius: 5px;
     box-shadow:  0px 2px 2px rgba(8, 8, 0, 0.15);
+    background: rgb(247, 244, 244);
  }
   
 .p-datatable .p-datatable-header .w-30 {

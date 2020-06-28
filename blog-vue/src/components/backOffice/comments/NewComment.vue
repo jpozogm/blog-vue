@@ -7,7 +7,7 @@
             <Fieldset :legend="'New Comment'">
 
                     <div class="form-group">
-                        <input id="commentContent" type="text" placeholder="Escribe un comentario..." v-model="newComment.commentContent">
+                        <input id="commentContent" class="no-border" type="text" placeholder="Escribe un comentario..." v-model="newComment.commentContent">
                     </div>
 
                 <div class="comment-btn">
@@ -18,7 +18,6 @@
     </template>
   </div>
 </template>
-
 
 
 <script>
@@ -59,3 +58,13 @@ export default {
     }
 }
 </script>
+
+<style>
+.no-border{
+    border: 1px solid transparent
+}
+
+.no-border:focus{
+    outline-color: transparent;
+}
+</style>
