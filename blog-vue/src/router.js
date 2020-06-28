@@ -1,15 +1,12 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import BackOffice from './components/backOffice/BackOffice'
-import BackOfficeDetails from './components/backOffice/BackOfficeDetails'
-import EditComment from './components/backOffice/comments/EditComment'
-import EditPost from './components/backOffice/posts/EditPost'
-import NewPost from './components/backOffice/posts/NewPost'
+import { default as Router, default as VueRouter } from 'vue-router'
 import Home from './components/home/Home.vue'
-import HomeDetails from './components/home/HomeDetails'
-import Login from './components/login/Login'
+import BackOfficeLayout from './views/BackOfficeLayout'
+import HomeLayout from './views/HomeLayout'
 
-Vue.use(Router)
+
+
+Vue.use(VueRouter);
 
 
 
@@ -30,24 +27,26 @@ Vue.use(Router)
   }
 
 
-
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     { path: '/', redirect: '/home' },
-    { path: '/home', name: 'home', component: Home },
-    { path: '/post/:id', name: 'postId', component: HomeDetails },
-    { path: '/backOffice', name: 'backOffice', beforeEnter : guardMyroute, component: BackOffice },
-    { path: '/PrivatePost/:id', name: 'backOfficePostId', component: BackOfficeDetails },
-    { path: '/login', name: 'login', component: Login },
-    { path: '/newPost', name: 'newPost', component: NewPost },
-    { path: '/editPost/:id', name: 'editPost', component: EditPost },
-    { path: '/editComment/:id', name: 'editComment', component: EditComment },
+    { 
+      path: '/home', component: HomeLayout, children: [
+        { path: '', component: Home },
+        { path: ':id', name: 'HomeDetails', component: () => import("./components/home/HomeDetails") },
+      ]
+    },
+    {
+      path: '/backOffice', component: BackOfficeLayout, children: [
+        { path: '/', name: 'backOffice', beforeEnter : guardMyroute, component: () => import('./components/backOffice/BackOffice') },
+        { path: ':id', name: 'backOfficeDetail', component: () => import ('./components/backOffice/BackOfficeDetails') },
+        { path: '/newPost', name: 'newPost', component: () => import ('./components/backOffice/posts/NewPost')},
+        { path: '/editPost/:id', name: 'editPost', component: () => import ('./components/backOffice/posts/EditPost') }, 
+        { path: '/editComment/:id', name: 'editComment', component: () => import ('./components/backOffice/comments/EditComment')},
+      ]
+    },
+    { path: '/login', name: 'login', component: () => import ('./components/login/Login') },
   ]
 })
-
-/* path: ‘/backOffice’, component: BackOffice, children: [
-  { path: ‘’, name: ‘BackOffice’, component: () => import(“./components/BOPost.vue”) },
-  { path: ‘:id’, name: ‘BOPostDetails’, component: () => import(“./components/BOPostDetails.vue”) },
-] */

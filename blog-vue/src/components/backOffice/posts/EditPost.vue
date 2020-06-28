@@ -72,11 +72,11 @@ export default {
             let id = this.$route.params.id;
             const payload= {id:id, updateForm:this.updateForm};
             await this.$store.dispatch('updatePost', payload)
-            this.$router.push(`/PrivatePost/${this.post._id}`)
+            this.$router.push(`/backOffice/${this.post._id}`)
         },
 
         back(){
-            this.$router.push(`/PrivatePost/${this.post._id}`);
+            this.$router.push(`/backOffice/${this.post._id}`);
         }
     }  
 }

@@ -2,7 +2,7 @@
 <template>
   <div id="app">
     <h1 class="title">Library</h1>
-    <Header></Header>
+    <Header></Header>    
     <router-view/>
   </div>
 </template>
@@ -20,4 +20,15 @@ export default {
   },
 }
 </script>
+
+  <style>
+    body {
+      padding: 10px;
+    }
+
+    #app {
+      height: 100vh;
+
+    }
+    </style>
 

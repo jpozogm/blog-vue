@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "blog-stencil": "file:../../blog-stencil",
     "core-js": "^3.6.5",
     "primeicons": "^4.0.0",
     "primevue": "^2.0.0-rc.1",
+    "test-components": "^1.0.3",
     "vue": "^2.6.11",
     "vue-router": "^3.3.4",
     "vuex": "^3.4.0"

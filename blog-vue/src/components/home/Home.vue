@@ -10,11 +10,26 @@
       <div v-if="loading">Cargando...</div>
 
       <div v-else>
+
+ <app-post-card v-for="post in posts" :key="post._id">
+        <blog-card class="section1">
+          <router-link :to="{name: 'HomeDetails', params: {id: post._id}}">{{post._id}} - {{post.postTittle}}</router-link>
+        </blog-card>
+ </app-post-card>
+
+
+
         <ul>
           <li v-for="post in posts" :key="post._id">
-            <router-link :to="'/post/'+post._id">{{post._id}} - {{post.postTittle}}</router-link>
+            <blog-card class="section1">
+            <router-link :to="{name: 'HomeDetails', params: {id: post._id}}">{{post._id}} - {{post.postTittle}}</router-link>
+      </blog-card>
+            <blog-button></blog-button>
+
           </li>
         </ul>
+
+
       </div>
     </section>
   </div>
