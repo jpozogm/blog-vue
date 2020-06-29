@@ -5,12 +5,6 @@
         <form id="updatePost">
             <Card class="w-80">
 
-                <template slot="header">
-                    <div class="form-group">
-                        <label class="label-header">Author: {{post.postAuthorName}}</label>
-                    </div>
-                </template>
-
                 <template slot="title">
                     <div class="form-group">
                         <label class="title" for="title">Title</label>
@@ -22,6 +16,7 @@
                     <div class="form-group mt-10">
                         <Textarea type="text" name="content" rows="15" class="form-comtrol mt-10 w-100" :placeholder="post.postContent" v-model="updateForm.postContent" />
                     </div>
+                    <p class="label-content">*Last author was "{{post.postAuthorName}}" and will be updated to "{{infoToken.body.user}}"</p>
                 </template>
 
                 <template slot="footer">
@@ -110,5 +105,11 @@ export default {
     .p-component{
         color: black;
         padding: 15px;
+    }
+    
+    .label-content{
+        text-align: end;
+        font-size: 12px;
+        font-style: italic;
     }
 </style>

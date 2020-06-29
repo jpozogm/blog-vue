@@ -33,8 +33,25 @@ export default {
 
 <style>
 
-.main{
-}
+  .flex{
+    display: flex;
+  }
+
+  .flex__between{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .flex__center{
+    display: flex;
+    justify-content: center;
+  }
+
+  .flex__column{
+    display: flex;
+    flex-direction: column;
+  }
+  
   body {
     padding: 10px;
   }

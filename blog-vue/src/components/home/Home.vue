@@ -22,7 +22,7 @@
             <p class="acordion__title">No matter where you are in the process, we’d love to read you</p>
 
             <Accordion>
-              <AccordionTab header="No matter where you are in the process," :active="true">
+              <AccordionTab header="No matter where you are in the process," :active="false">
                 The creative process is a model and it very certainly works different for each person. Yet, it can be a starting point to experiment with your very own creative process. The questions is that our community can help you to discover what works for you and we urge you to come up with your own reflections to consciously design for each step. In one way, the "Gym" is our way to experiment with the creative process. 
               </AccordionTab>
               <AccordionTab header="we’d love to read you">
@@ -85,11 +85,25 @@ export default {
       height: 480px;
       z-index: 10;
   }
-
+.p-accordion .p-accordion-header .p-accordion-header-link{
+    background: white;
+    padding: 5px;
+    font-size: 14px;
+}
+.p-accordion .p-accordion-header .p-accordion-header-link:focus{
+  outline-color: transparent;
+}
   .p-accordion-tab .p-accordion-header{
     margin-top: 5px;
     background-color: white;
     padding: 5px;
+    font-size: 25px;
+  }
+
+  .p-accordion .p-accordion-header{
+    margin-top: 0px;
+    background-color: white;
+    padding: 0px;
     font-size: 25px;
   }
 
@@ -99,8 +113,8 @@ export default {
 
   .p-accordion-tab .p-accordion-content{
     background-color: white;
-    padding: 10px;
-    font-size: 16px;
+    padding: 5px;
+    font-size: 12px;
   }
 
   .acordion__title{

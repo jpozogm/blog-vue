@@ -17,10 +17,6 @@ export default {
 }
 </script>
 
-<style>
-    .flex{
-        display: flex;
-    }
-</style>
+
 
 

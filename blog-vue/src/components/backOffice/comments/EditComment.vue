@@ -5,7 +5,7 @@
             <Fieldset :legend="comment.commentAuthorNickName">
 
                 <div class="form-group">
-                    <input type="text" name="content" :placeholder="comment.commentContent"  v-model="updatedComment.commentContent">
+                    <input type="text" class="no-border" name="content" :placeholder="comment.commentContent"  v-model="updatedComment.commentContent">
                 </div>
 
                 <div class="comment-btn">
@@ -86,6 +86,7 @@ export default {
 <style>
 
     .p-fieldset {
+        background-color: white;
         color: black;
         margin: 10px 0;
         font-style: italic;

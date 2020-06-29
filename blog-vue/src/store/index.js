@@ -21,6 +21,7 @@ export default new Vuex.Store({
         errored: false,
         token: '',
         signed: false,
+        sign: true,
     },
 
     getters:{
@@ -30,6 +31,7 @@ export default new Vuex.Store({
         loading: state => {return state.loading},
         errored: state => {return state.errored},
         token: state => {return state.token},
+        sign: state => {return state.sign},
         signed: state => {return state.signed},
     },
 
@@ -189,6 +191,10 @@ export default new Vuex.Store({
             .finally(() => commit('LOADING'))
         },
 
+        changingSign({commit}){
+            commit('CHANGING_SIGN');
+        },
+
         logOut({commit}){
             commit('LOG_OUT');
         }
@@ -246,6 +252,10 @@ export default new Vuex.Store({
         SIGN_IN(state, login){
             state.token = login.token;
             state.signed = true;
+        },
+
+        CHANGING_SIGN(state){
+            state.sign = !state.sign;
         },
 
         LOG_OUT(state){
