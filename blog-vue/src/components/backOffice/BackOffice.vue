@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>BACK OFFICE</h1>
 
     <section v-if="errored">
       <p>Lo sentimos, no es posible obtener la información en este momento, por favor intente nuevamente mas tarde</p>
@@ -53,11 +52,16 @@ import 'primeicons/primeicons.css'
 
 export default {
   name: 'BackOffice',
+  components: {
+    'DataTable': DataTable,
+    'Column': Column,
+    'Button': Button
+  },
+
   beforeMount(){
     this.$store.dispatch('loadPosts')
   },
-
-
+  
   computed: {
     ...mapGetters([
       'posts',
@@ -70,11 +74,6 @@ export default {
     ])
   },
 
-    components: {
-    'DataTable': DataTable,
-    'Column': Column,
-    'Button': Button
-  },
   methods: {
     newPost(){
       this.$router.push('/newPost')

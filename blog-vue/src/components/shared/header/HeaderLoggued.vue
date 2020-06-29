@@ -1,14 +1,18 @@
 <template>
-    <nav id="menu">
-        <ul>
-            <li>
-                <router-link :to="'/BackOffice/'">BACK OFFICE</router-link>
-            </li>
-            <li>
-                <button @click="logOut()">Log Out</button>
-            </li>
-        </ul>
-    </nav>
+
+    <blog-navbar>
+        
+        <div slot="navbar__items">
+            <div class="navbar__btns flex">
+                <router-link :to="'/BackOffice/'"><blog-navbar-btn text="BACK OFFICE"></blog-navbar-btn></router-link>    
+                <blog-navbar-btn text="LOG OUT" @click="logOut()"></blog-navbar-btn>
+            </div>
+        </div> 
+
+    </blog-navbar>
+
+
+ 
 </template>
 
 <script>

@@ -87,7 +87,6 @@ export default new Vuex.Store({
             PostsProxyService.updatePost(id, UpdatedPost)
             .then(res => {
                 if (res.data) {
-                    console.log('res.data',res.data)
                     commit('UPDATE_POST', res.data)
                 }
             })
@@ -229,10 +228,9 @@ export default new Vuex.Store({
         },
 
         UPDATE_COMMENT(state, comment){
-
-            console.log('comment', comment)
-
-            const newPost = [...state.post.postComments, comment];
+            const id = comment._id
+            const newPosts = state.post.postComments.filter(comment => comment._id !== id);
+            const newPost = [...newPosts, comment];
             state.post.postComments = newPost;
 
         },

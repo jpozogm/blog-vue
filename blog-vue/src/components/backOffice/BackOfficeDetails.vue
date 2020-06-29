@@ -22,7 +22,7 @@
           </template>
       
           <template slot="footer">
-            <p class="footerSign">{{post.postAuthorName}} ({{post.postDate.slice(0, 10)}})</p>
+            <p class="footerSign">{{post.postAuthorName}} ({{post.postDate}})</p>
             <div v-if="infoToken.body._id === post.user || infoToken.body.role === 'admin'">
               <Button label="Edit" class="signIn p-button-success p-button-raised btn" @click="editPost()"/>
               <Button label="Delete" class="signIn p-button-danger p-button-raised btn" @click="deletePost()"/>

@@ -7,28 +7,21 @@
     <div v-if="loading">Cargando...</div>
 
     <div v-else>
-
       <div>
-        <h2>{{post.postTittle}}</h2>
 
-        <div>
-          <label>Author:</label>
-          {{post.postAuthorName}}
+        <blog-post-detail 
+          :heading= "post.postTittle" 
+          :content="post.postContent"
+          :footer= "post.postAuthorName">
+        </blog-post-detail>
+
+        <div v-for="comment in post.postComments" :key="comment._id">
+          <blog-post-comment :author= "comment.commentAuthorNickName" 
+            :content="comment.commentContent"></blog-post-comment>
         </div>
-        <div>
-          <label>Description:</label>
-          {{post.postContent}}
-        </div>
 
-
-        <ul>
-          <li v-for="comment in post.postComments" :key="comment._id">
-            <p>{{comment.commentAuthorNickName}}</p>
-            <p>{{comment.commentContent}}</p>
-          </li>
-        </ul>
-
-        <button @click="gotoHome()">Back</button>
+        <blog-button class ="button fadeIn" @click="gotoHome()" text="Back Home"></blog-button>
+        
       </div>
     </div>
   </section>

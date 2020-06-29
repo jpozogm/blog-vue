@@ -4,13 +4,9 @@
         <form id="updatePost">
             <Fieldset :legend="comment.commentAuthorNickName">
 
-                <div>
-                    <p>{{comment.commentContent}}</p>
+                <div class="form-group">
+                    <input type="text" name="content" :placeholder="comment.commentContent"  v-model="updatedComment.commentContent">
                 </div>
-
-                    <div class="form-group">
-                        <input type="text" name="password" v-model="updatedComment.commentContent">
-                    </div>
 
                 <div class="comment-btn">
                     <Button label="SAVE" class="signIn p-button-success p-button-raised btn btn-comment" @click="updateComment()"/>
@@ -90,7 +86,6 @@ export default {
 <style>
 
     .p-fieldset {
-        background: transparent;
         color: black;
         margin: 10px 0;
         font-style: italic;
