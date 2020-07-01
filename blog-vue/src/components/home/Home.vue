@@ -72,23 +72,24 @@ export default {
 <style>
 
   .grid{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 370px));
-      justify-items: stretch;
-      justify-content: space-evenly; 
-      padding: 10px 20px 10px 90px;
-      gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 370px));
+    justify-items: stretch;
+    justify-content: space-evenly; 
+    padding: 10px 20px 10px 90px;
+    gap: 20px;
   }
 
   .test{
-      width: 254px; 
-      height: 480px;
-      z-index: 10;
+  width: 254px; 
+  height: 480px;
+  z-index: 10;
   }
+
 .p-accordion .p-accordion-header .p-accordion-header-link{
-    background: white;
-    padding: 5px;
-    font-size: 14px;
+  background: white;
+  padding: 5px;
+  font-size: 14px;
 }
 .p-accordion .p-accordion-header .p-accordion-header-link:focus{
   outline-color: transparent;

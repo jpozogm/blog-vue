@@ -1,7 +1,7 @@
 const API_URL = 'http://localhost:3000';
 const API_COMMENTS = '/comments/';
 import axios from "axios";
-import '../business/interceptor/interceptor.js';
+import '../interceptor/interceptor.js';
 
 export default {
 

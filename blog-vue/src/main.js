@@ -1,8 +1,8 @@
 import { applyPolyfills, defineCustomElements } from 'blog-stencil/loader';
 import Vue from 'vue';
 import App from './App.vue';
+import store from './business/store/index.js';
 import router from './router';
-import store from './store/index.js';
 
 
 Vue.config.productionTip = false
@@ -11,17 +11,7 @@ applyPolyfills().then(() => {
   defineCustomElements();
 });
 
-Vue.config.ignoredElements = [
-  "blog-button",
-  "app-post-card",
-  "blog-card",
-  "blog-navbar",
-  "blog-navbar-btn",
-  "blog-layout",
-  "blog-back-ground",
-  "blog-landing-info",
-  "blog-footer"
-];
+Vue.config.ignoredElements = [/blog-\w*/];
 
 new Vue({
   el: '#app',
@@ -29,5 +19,3 @@ new Vue({
   router,
   render: h => h(App)
 })
-
-

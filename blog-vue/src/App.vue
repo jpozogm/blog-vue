@@ -1,6 +1,8 @@
   
 <template>
   <div class="main">
+    <ErrorMessages></ErrorMessages>
+    
     <blog-back-ground>
       <div id="app">
         <blog-layout>
@@ -21,12 +23,13 @@
 
 <script>
 import Header from './components/shared/header/Header';
-
+import ErrorMessages from './components/shared/error-messages/ErrorMessages';
 
 export default {
   name: 'app',
   components: {
     Header,
+    ErrorMessages,
   },
 }
 </script>
